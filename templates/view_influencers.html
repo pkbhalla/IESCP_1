@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block remtitle %} All Influencers {% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sponsor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/sponsor/dashboard">Profile</a>
+                <a class="nav-link" href="/sponsor/campaigns">Campaigns</a>
+                <a class="nav-link" href="/sponsor/influencers">Influencers</a>
+
+                <a class="nav-link" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<section class="gradient-custom" style="min-height: 100vh;">
+    <div class="container py-5 h-100">
+        <form method="GET" action="/sponsor/influencers">
+            <input type="text" name="search_query" placeholder="Search by name, niche, or category"
+                class="form-control">
+            <button type="submit" class="btn btn-success mt-2">Search</button>
+        </form>
+        <div class="row">
+            {% for influencer in influencers %}
+            <div class="col-md-4">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: {{ influencer.name }}</h5>
+                        <p class="card-text">Email: {{ influencer.email }}</p>
+                        <p class="card-text">Category: {{ influencer.inf_category }}</p>
+                        <a href="/sponsor/influencers/{{ influencer.id }}" class="btn btn-primary">View Full Profile</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

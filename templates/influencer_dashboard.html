@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block remtitle %} Influencer Dashboard {% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Influencer</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/influencer/dashboard">Profile</a>
+        <a class="nav-link" href="/influencer/campaigns">Campaign</a>
+
+        <a class="nav-link" href="/logout">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="gradient-custom hcolor" style="min-height: 100vh;">
+  <div class="container-fluid py-2 h-100">
+    <div class="row">
+      <div class="col-md-2 bg-light" style="min-height: 100vh;">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-md-4 bcolor">
+          <h2><u>Profile</u></h2>
+          <h3 class="font-weight-bold">{{influencer.username}}</h3>
+          <div class="d-flex flex-column align-items-center text-center">
+            <h6>{{influencer.email}}</h6>
+            <h6>Reach: {{influencer.inf_reach}}</h6>
+            <h6>Category: {{influencer.inf_category}}</h6>
+            <h6>Niche: {{influencer.inf_niche}}</h6>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-10">
+        <div class="row">
+
+          <div class="col-md-10">
+            <h2>Active Campaigns</h2>
+            {% if ongoing_campaigns %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Campaign Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for campaign in ongoing_campaigns %}
+                <tr>
+                  <th scope="row">{{ loop.index }}</th>
+                  <td>{{ campaign.name }}</td>
+                  <td>{{ campaign.description }}</td>
+                  <td><a href="/influencer/campaigns/{{ campaign.id }}" class="btn btn-primary">View</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p>No active campaigns</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-10">
+            <h2>New Requests</h2>
+            {% if ad_requests %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Campaign Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Accept/Reject</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for adrequest in ad_requests %}
+                <tr>
+                  <th scope="row">{{ loop.index }}</th>
+                  <td>{{ adrequest.campaign.name }}</td>
+                  <td>{{ adrequest.campaign.description }}</td>
+                  <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <a href="/influencer/campaigns/{{ adrequest.campaign.id }}/adrequests"
+                        class="btn btn-primary">View Ad Request</a>
+                      <a href="/adrequests/{{ adrequest.id }}/accept"
+                        class="btn btn-success">Accept</a>
+                      <a href="/adrequests/{{ adrequest.id }}/reject"
+                        class="btn btn-danger">Reject</a>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p>No new requests</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

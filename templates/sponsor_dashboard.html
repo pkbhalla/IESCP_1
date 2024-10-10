@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block remtitle %} Sponsor Dashboard {% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="#">Sponsor</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+              <a class="nav-link" href="/sponsor/dashboard">Profile</a>
+              <a class="nav-link" href="/sponsor/campaigns">Campaigns</a>
+              <a class="nav-link" href="/sponsor/influencers">Influencers</a>
+         
+              <a class="nav-link" href="/logout">Logout</a>
+          </div>
+      </div>
+  </div>
+</nav>
+<section class="gradient-custom hcolor" style="min-height: 100vh;">
+  <div class="container py-5 h-100">
+<h1>Active Campaigns</h1>
+<div class="row">
+  {% if ongoing_campaigns %}
+  {% for campaign in ongoing_campaigns %}
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ campaign.name }}</h5>
+        <p class="card-text">{{ campaign.description }}</p>
+        <a href="/sponsor/campaigns/{{ campaign.id }}" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p>No active campaigns</p>
+  {% endif %}
+</div>
+
+<!-- show new ad requests  from influencers on public campaigns created by the sponsor, with buttons to accept the request, reject the request and view the ad request-->
+
+<h1>New requests</h1>
+<div class="row">
+  {% if ad_requests %}
+  <div class="col-md-6">
+    {% for ad_request in ad_requests %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Request from: {{ ad_request.influencer.name }}</h5>
+        <p class="card-text">Message: {{ ad_request.messages}}</p>
+        <a href="/sponsor/campaigns/{{ ad_request.campaign.id }}/adrequests" class="btn btn-primary">View</a>
+        <a href="/adrequests/{{ ad_request.id }}/accept" class="btn btn-success">Accept</a>
+        <a href="/adrequests/{{ ad_request.id }}/reject" class="btn btn-danger">Reject</a>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No new requests</p>
+  {% endif %}
+
+</div>
+</div>
+</section>
+{% endblock %}

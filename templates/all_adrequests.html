@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block remtitle %} Sponsor Adrequests {% endblock %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sponsor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/sponsor/dashboard">Profile</a>
+                <a class="nav-link" href="/sponsor/campaigns">Campaigns</a>
+                <a class="nav-link" href="/sponsor/influencers">Influencers</a>
+                <a class="nav-link" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<section class="gradient-custom hcolor" style="min-height: 100vh;">
+    <div class="container py-5 h-100">
+        <h1>Ad Requests</h1>
+
+        <div class="row">
+            {% if ad_requests %}
+            {% for ad_request in ad_requests %}
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="card w-100 mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title"><a href="/sponsor/influencers/{{ad_request.influencer.id}}">Influencer:
+                                {{ ad_request.influencer.name }}</a></h3>
+                        <h5 class="card-title">Message: {{ ad_request.messages }}</h5>
+                        <p class="card-text">Requirements: {{ ad_request.requirements }}</p>
+                        <p class="card-text">Payment Amount: {{ ad_request.payment_amount }}</p>
+                        <p class="card-text">Status: {{ ad_request.status_adreq }}</p>
+                        {% if ad_request.created_by=="influencer" %}
+                        <p class="card-text">Request sent by: {{ ad_request.influencer.name }}</p>
+                        {% endif %}
+                        <a href="/sponsor/campaigns/{{ad_request.campaign_id}}/adrequests/{{ad_request.id}}/edit"
+                            class="btn btn-primary">Edit</a>
+                        <a href="/sponsor/campaigns/{{ad_request.campaign_id}}/adrequests/{{ad_request.id}}/delete"
+                            class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No ad requests</p>
+            {% endif %}
+        </div>
+        <a href="/sponsor/campaigns/{{ campaign_id }}/create_adrequest" class="btn btn-primary">Create Ad Request</a>
+    </div>
+</section>
+
+{% endblock %}

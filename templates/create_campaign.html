@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block remtitle %} Create Campaign {% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sponsor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/sponsor/dashboard">Profile</a>
+                <a class="nav-link" href="/sponsor/campaigns">Campaigns</a>
+                <a class="nav-link" href="/sponsor/influencers">Influencers</a>
+        
+                <a class="nav-link" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Create Campaign</h3>
+                        <form method="POST" action="/sponsor/create_campaign">
+                            <input type="hidden" name="user_type" value="sponsor">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline">
+                                        <input type="text" id="name" name="name" class="form-control form-control-lg"
+                                            required />
+                                        <label class="form-label" for="name">Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline">
+                                        <input type="text" id="description" name="description"
+                                            class="form-control form-control-lg" required />
+                                        <label class="form-label" for="description">Description</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline">
+                                        <input type="number" id="budget" name="budget"
+                                            class="form-control form-control-lg" required />
+                                        <label class="form-label" for="budget">Budget</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label for="visibility">Visibility</label>
+                                        <select class="form-select form-select-lg" id="visibility" name="visibility"
+                                            required>
+                                            <option value="public">Public</option>
+                                            <option value="private">Private</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <input type="text" id="goals" name="goals"
+                                                class="form-control form-control-lg" required />
+                                            <label class="form-label" for="goals">Goals</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline">
+                                        <input type="date" id="deadline" name="deadline"
+                                            class="form-control form-control-lg" required />
+                                        <label class="form-label" for="deadline">Deadline</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

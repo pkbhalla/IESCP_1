@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block remtitle %} Sponsor Campaigns {% endblock %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sponsor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/sponsor/dashboard">Profile</a>
+                <a class="nav-link" href="/sponsor/campaigns">Campaigns</a>
+                <a class="nav-link" href="/sponsor/influencers">Influencers</a>
+                <a class="nav-link" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="gradient-custom hcolor" style="min-height: 100vh;">
+    <div class="container py-5 h-100">
+<h1>Campaigns</h1>
+<div class="row">  
+    {% for campaign in campaigns %}
+    <div class="col-md-4 d-flex align-items-stretch ">
+        <div class="card mt-4 w-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ campaign.name }}</h5>
+                <p class="card-text">{{ campaign.description }}</p>
+                <a href="/sponsor/campaigns/{{ campaign.id }}" class="btn btn-primary">View</a>
+                <a href="/sponsor/campaigns/{{ campaign.id }}/edit" class="btn btn-success">Edit</a>
+                <a href="/sponsor/campaigns/{{ campaign.id }}/delete" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if campaigns|length == 0 %}
+    <p>No campaigns available, please create a new one</p>
+    {% endif %}
+</div>
+
+<a href="/sponsor/create_campaign" class="btn btn-primary mt-4">Create New Campaign</a>
+
+
+</div>
+</section>
+{% endblock %}

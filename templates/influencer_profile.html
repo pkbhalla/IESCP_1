@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block remtitle %} Influencer {{ influencer.name}} {% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sponsor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/sponsor/dashboard">Profile</a>
+                <a class="nav-link" href="/sponsor/campaigns">Campaigns</a>
+                <a class="nav-link" href="/sponsor/influencers">Influencers</a>
+               
+                <a class="nav-link" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                    alt="Generic placeholder image" class="img-fluid"
+                                    style="width: 180px; border-radius: 10px;">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-1">{{ influencer.name }}</h5>
+                                <p class="mb-2 pb-1">{{ influencer.inf_niche }}</p>
+                                <div class="d-flex justify-content-start rounded-3 p-2 mb-2 bg-body-tertiary">
+                                    <div>
+                                        <p class="small text-muted mb-1">Email</p>
+                                        <p class="mb-0">{{ influencer.email }}</p>
+                                    </div>
+                                    <div class="px-3">
+                                        <p class="small text-muted mb-1">Reach</p>
+                                        <p class="mb-0">{{ influencer.inf_reach }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="small text-muted mb-1">Category</p>
+                                        <p class="mb-0">{{ influencer.inf_category }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

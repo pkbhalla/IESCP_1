@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block remtitle %} Register {% endblock %}
+{% block content %}
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form for {{ user_type }}</h3>
+              <form method="POST" action="/register/{{ user_type }}">
+                <input type="hidden" name="user_type" value="{{ user_type }}">
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="text" id="name" name="name" class="form-control form-control-lg" required />
+                      <label class="form-label" for="name">Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="text" id="username" name="username" class="form-control form-control-lg" required />
+                      <label class="form-label" for="username">Username</label>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="email" id="email" name="email" class="form-control form-control-lg" required />
+                      <label class="form-label" for="email">Email</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="password" id="password" name="password" class="form-control form-control-lg" required />
+                      <label class="form-label" for="password">Password</label>
+                    </div>
+                  </div>
+                </div>
+  
+                {% if user_type == "sponsor" %}
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="text" id="sp_industry" name="sp_industry" class="form-control form-control-lg" required />
+                      <label class="form-label" for="sp_industry">Industry</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="number" id="sp_budget" name="sp_budget" class="form-control form-control-lg" required />
+                      <label class="form-label" for="sp_budget">Budget</label>
+                    </div>
+                  </div>
+                </div>
+                {% elif user_type == "influencer" %}
+                <div class="row">
+                  <div class="col-md-4 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="text" id="inf_category" name="inf_category" class="form-control form-control-lg" required />
+                      <label class="form-label" for="inf_category">Category</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="text" id="inf_niche" name="inf_niche" class="form-control form-control-lg" required />
+                      <label class="form-label" for="inf_niche">Niche</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <div data-mdb-input-init class="form-outline">
+                      <input type="number" id="inf_reach" name="inf_reach" class="form-control form-control-lg" required />
+                      <label class="form-label" for="inf_reach">Reach</label>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+  
+                <div class="mt-4 pt-2">
+                  <input data-mdb-ripple-init class="btn btn-primary btn-lg" type="submit" value="Register as {{ user_type }}" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

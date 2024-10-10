@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block remtitle %} Influencer Campaigns {% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Influencer</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/influencer/dashboard">Profile</a>
+          <a class="nav-link" href="/influencer/campaigns">Campaign</a>
+         
+        
+          <a class="nav-link" href="/logout">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="gradient-custom hcolor" style="min-height: 100vh;">
+    <div class="container py-2 h-100">
+<h1>Campaign Details</h1>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ campaign.name }}</h5>
+    <p class="card-text">{{ campaign.description }}</p>
+    <p class="card-text">Start Date: {{ campaign.start_date }}</p>
+    <p class="card-text">Deadline: {{ campaign.end_date }}</p>
+    <p class="card-text">Budget: {{ campaign.budget }}</p>
+    <p class="card-text">Visibility: {{ campaign.visibility }}</p>
+    <p class="card-text">Goals: {{ campaign.goals }}</p>
+    <p class="card-text">Status: {{ campaign.status_camp }}</p>
+    
+    <h2>Ad Requests</h2>
+    {% if ad_requests %}
+    <ul>
+        {% for ad_request in ad_requests %}
+        <li>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ ad_request.influencer.name }}</h5>
+                    <p class="card-text">Status: {{ ad_request.status_adreq }}</p>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No Ad Requests</p>
+    
+    {% endif %}
+    <a href="/influencer/campaigns/{{ campaign.id }}/adrequests" class="btn btn-primary">View All your Ad Requests</a>
+    <a href="/influencer/send_ad_request/{{ campaign.id }}" class="btn btn-primary">Send New Ad Request</a>
+  </div>
+</div>
+
+{% endblock %}
+

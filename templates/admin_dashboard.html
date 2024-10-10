@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% block cont %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {%
+endblock %}
+{% block remtitle %} Admin Dashboard {% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Admin's Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/admin/dashboard">Info</a>
+        <a class="nav-link" href="/logout">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<section class="gradient-custom hcolor" style="min-height: 100vh;">
+  <div class="container py-5 h-100">
+    <h1>Active Campaigns</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">View Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for campaign in ongoing_campaigns %}
+        <tr>
+          <td>{{ campaign.name }}</td>
+          <td>{{ campaign.description | truncate(30) }}</td>
+          <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+              data-target="#campaignModal{{ campaign.id }}">View</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h1>All Users</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">View Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in all_users %}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+              data-target="#userModal{{ user.id }}">View</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h1>All Campaigns</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">View Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for campaign in all_campaigns %}
+        <tr>
+          <td>{{ campaign.name }}</td>
+          <td>{{ campaign.description | truncate(30) }}</td>
+          <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+              data-target="#campaignModal{{ campaign.id }}">View</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h1>All Ad Requests</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Campaign Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">View Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ad_req in all_ad_reqs %}
+        <tr>
+          <td>{{ ad_req.campaign.name }}</td>
+          <td>{{ ad_req.status_adreq }}</td>
+          <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+              data-target="#adReqModal{{ ad_req.id }}">View</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% for campaign in ongoing_campaigns %}
+<div class="modal fade" id="campaignModal{{ campaign.id }}" tabindex="-1" role="dialog"
+  aria-labelledby="campaignModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="campaignModalLabel">{{ campaign.name }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Description: {{ campaign.description }}</p>
+        <p>Start Date: {{ campaign.start_date }}</p>
+        <p>End Date: {{ campaign.end_date }}</p>
+        <p>Target Amount: {{ campaign.budget }}</p>
+        <p>Sponsor: {{ campaign.sponsor.username }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% for user in all_users %}
+<div class="modal fade" id="userModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">{{ user.username }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Name: {{ user.name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Is Admin: {{ user.is_admin }}</p>
+        <p>Is Sponsor: {{ user.is_sponsor }}</p>
+        <p>Is Influencer: {{ user.is_influencer }}</p>
+        <p>Sponsor Industry: {{ user.sp_industry }}</p>
+        <p>Influencer Category: {{ user.inf_category }}</p>
+        <p>Influencer Niche: {{ user.inf_niche }}</p>
+        <p>Influencer Reach: {{ user.inf_reach }}</p>
+        <p>Sponsor Budget: {{ user.sp_budget }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% for ad_req in all_ad_reqs %}
+<div class="modal fade" id="adReqModal{{ ad_req.id }}" tabindex="-1" role="dialog" aria-labelledby="adReqModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="adReqModalLabel">Ad Request Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Campaign Name: {{ ad_req.campaign.name }}</p>
+        <p>Influencer: {{ ad_req.influencer.username }}</p>
+        <p>Messages: {{ ad_req.messages }}</p>
+        <p>Requirements: {{ ad_req.requirements }}</p>
+        <p>Payment Amount: {{ ad_req.payment_amount }}</p>
+        <p>Created By: {{ ad_req.created_by }}</p>
+        <p>Status: {{ ad_req.status_adreq }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}
